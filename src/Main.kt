@@ -24,8 +24,14 @@ private fun menu(){
                 print("Listando...")
                 listar(convidado)
             }
-            3 -> print("Editando...")
-            4 -> print("Excluindo...")
+            3 -> {
+                print("Editando...")
+                editar()
+            }
+            4 -> {
+                print("Excluindo...")
+                excluir()
+            }
             0 -> print("Saindo...")
         }
     }while (true)
