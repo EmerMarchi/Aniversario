@@ -1,3 +1,4 @@
+
 fun main() {
     menu()
 }
@@ -17,22 +18,22 @@ private fun menu(){
 
         when (opcao){
             1 -> {
-                print("Cadastrando...")
-                convidado = cadastrar()
+                println("Cadastrando...")
+                 cadastrar()
             }
             2 -> {
-                print("Listando...")
-                listar(convidado)
+                println("Listando...")
+                listar()
             }
             3 -> {
-                print("Editando...")
+                println("Editando...")
                 editar()
             }
             4 -> {
-                print("Excluindo...")
+                println("Excluindo...")
                 excluir()
             }
-            0 -> print("Saindo...")
+            0 -> println("Saindo...")
         }
     }while (true)
 }
@@ -50,29 +51,46 @@ private fun cadastrar(): Convidado {
     print("Qual a sua restrição alimentar?")
     convidado.alimentar = readln()
 
-    return convidado
+    listConvidados
 }
 
-private fun listar(convidado: Convidado){
-    print("Nome: ${convidado.nome}; " +
-        "Presente: ${convidado.presente}; " +
-        "Restrição: ${convidado.alimentar}; " +
-        "Vai ir pra festa? ${convidado.presenca}")
+private fun listar() : String{
+    var i = 0
+    if (listaConvidados.isEmpy()){
+        println("Não há convidados")
+    }else {
+        listaConvidados.forEach {convidado ->
+        print(
+            "Posição: ${i++}" +
+                    "Nome: ${convidado.nome}; " +
+                    "Presente: ${convidado.presente}; " +
+                    "Restrição: ${convidado.alimentar}; " +
+                    "Vai ir pra festa? ${convidado.presenca}"
+        )
+        }
+    }
 }
 
 private fun editar(){
+    listar()
+
+    println("Digite a posição a ser editada: ")
+    val posicao = readln().toInt()
     println("O convidado vai? S/N")
     val resposta = readln()
     when(resposta){
-        "S"-> convidado.presenca = true
-        "N"-> convidado.presenca = false
+        "S"-> listaConvidados[posicao].presenca = true
+        "N"-> listaConvidados[posicao].presenca = false
     }
 }
 
 private fun excluir(){
-    convidado.nome = ""
+    listaConvidados.removeAt(0)
+
+   /* convidado.nome = ""
     convidado.alimentar = ""
     convidado.presente = ""
-    convidado.presenca = false
+    convidado.presenca = false*/
+
     println("Convidado excluido")
 }
